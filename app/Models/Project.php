@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Project extends Model
+{
+    protected $fillable=[
+        'NombreProyecto',
+        'FuenteFondos'
+    ];
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function($project){
+                $project->user_id=auth()->id();
+        });
+    }
+
+
+    public function User():BelongsTo{
+      return $this-BelongsTo(User::class);
+   }
+}
